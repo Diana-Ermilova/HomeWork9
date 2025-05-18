@@ -20,6 +20,22 @@ class RegPage():
         self.date_of_birth_input = browser.element("#dateOfBirthInput")
         self.date_picker_year = self.date_picker.element('[class$="year-select"]')
         self.date_picker_month = self.date_picker.element('[class$="month-select"]')
+
+    def set_first_name(self, first_name):
+        self.first_name.type(first_name)
+        return self
+
+    def set_last_name(self, last_name):
+        self.last_name.type(last_name)
+        return self
+    def set_user_email(self, user_email):
+        self.user_email.type(user_email)
+        return self
+
+    def set_user_phone(self, user_phone):
+        self.user_phone.type(user_phone)
+        return self
+
     def open(self):
         browser.open('/automation-practice-form')
         return self
@@ -57,8 +73,11 @@ class RegPage():
         return self
     def usr_address_state(self, value):
         browser.element('#state').click().all("#state div").element_by(have.exact_text(value)).click()
+        return  self
+
     def usr_address_city(self, value):
         browser.element('#city').click().all('#city div').element_by(have.exact_text(value)).click()
+        return  self
 
     def subjects(self, value):
         browser.element('#subjectsInput').type(value).press_enter()
@@ -95,18 +114,19 @@ class RegPage():
         self.submit()
         return self
 
-    def check_user_registration(self, user: User):
+    def check_user_registration(self, first_name, last_name, email, gender, phone_number, birth_date,
+                                subjects, hobbies, picture, address, state, city):
         browser.element('.modal-content table').all('td:nth-child(2)').should(have.exact_texts(
-            f'{user.first_name} {user.last_name}',
-            user.email,
-            user.gender,
-            user.phone_number,
-            user.birth_date.strftime('%d %B,%Y'),
-            user.subjects,
-            user.hobbies,
-            user.picture,
-            user.address,
-            f'{user.state} {user.city}'
+            f'{first_name} {last_name}',
+            email,
+            gender,
+            phone_number,
+            birth_date.strftime('%d %B,%Y'),
+            subjects,
+            hobbies,
+            picture,
+            address,
+            f'{state} {city}'
         )
     )
 
