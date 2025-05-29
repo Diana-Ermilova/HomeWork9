@@ -2,8 +2,6 @@ from selenium.webdriver.common.devtools.v134.network import set_user_agent_overr
 
 from test_page.test_reg_page import RegPage
 from datetime import date
-from test_page import test_reg_page
-import conftest
 
 def test_fill_registration_form(configure_base_browser):
     RegPage()\
@@ -14,11 +12,11 @@ def test_fill_registration_form(configure_base_browser):
         .set_user_email('testmail.01@gmail.com')\
         .set_user_phone('8800123121')\
         .set_birth_date(date.fromisoformat('1996-09-18'))\
-        .usr_address('London, county of Surrey, Privet Drive 4')\
-        .usr_address_state('Haryana')\
-        .usr_address_city('Panipat')\
-        .subjects('Physics')\
-        .hobbies('Sports')\
+        .fill_usr_address('London, county of Surrey, Privet Drive 4')\
+        .fill_usr_address_state('Haryana')\
+        .fill_usr_address_city('Panipat')\
+        .select_subjects('Physics')\
+        .select_hobbies('Sports')\
         .upload_picture('20762.jpg')\
         .submit()\
         .check_user_registration(

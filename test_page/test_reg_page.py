@@ -1,10 +1,6 @@
 import os
-
-from users_data import user_data
 from users_data.user_data import User
-import conftest
 from selene import browser, be, have
-from datetime import date
 import locale
 
 locale.setlocale(locale.LC_ALL, 'en_US.utf8')
@@ -64,26 +60,26 @@ class RegPage():
     def get_datepicker_day(self, day):
         return self.date_picker.element(f'[class*="day--0{day}"]')
 
-    def mobile_number(self, value):
+    def fill_mobile_number(self, value):
         self.user_phone.type(value)
         return self
 
-    def usr_address(self, value):
+    def fill_usr_address(self, value):
         browser.element('#currentAddress').type(value)
         return self
-    def usr_address_state(self, value):
+    def fill_usr_address_state(self, value):
         browser.element('#state').click().all("#state div").element_by(have.exact_text(value)).click()
         return  self
 
-    def usr_address_city(self, value):
+    def fill_usr_address_city(self, value):
         browser.element('#city').click().all('#city div').element_by(have.exact_text(value)).click()
         return  self
 
-    def subjects(self, value):
+    def select_subjects(self, value):
         browser.element('#subjectsInput').type(value).press_enter()
         return self
 
-    def hobbies(self, hobby):
+    def select_hobbies(self, hobby):
         hobbies ={"Sports": '[for="hobbies-checkbox-1"]', "Reading": '[for="hobbies-checkbox-2"]', "Music": '[for="hobbies-checkbox-3"]'}
         for i in hobby.split(", "):
             browser.element(hobbies[i]).click()
@@ -105,11 +101,11 @@ class RegPage():
         self.user_phone.type(user.phone_number)
         self.set_gender(user.gender)
         self.set_birth_date(user.birth_date)
-        self.usr_address(user.address)
-        self.usr_address_state(user.state)
-        self.usr_address_city(user.city)
-        self.hobbies(user.hobbies)
-        self.subjects(user.subjects)
+        self.fill_usr_address(user.address)
+        self.fill_usr_address_state(user.state)
+        self.fill_usr_address_city(user.city)
+        self.select_hobbies(user.hobbies)
+        self.select_subjects(user.subjects)
         self.upload_picture(user.picture)
         self.submit()
         return self
